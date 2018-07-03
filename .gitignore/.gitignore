@@ -1,5 +1,5 @@
-# Node
-node_modules
-*.log
-.nvm
-/bots/node_modules/
+# Node 
+node_modules 
+*.log 
+.nvm 
+/bots/node_modules/ 
