@@ -12,7 +12,7 @@ var UserRepos = React.createClass({
 
   // Component LifeCycle
   componentWillReceiveProps: function (props) {
-    this.setState({reposCount: props.repos.length})
+    this.setState({reposCount: props.repos.length, isLoading: false})
   },
   // Component LifeCycle
   componentDidMount: function () {

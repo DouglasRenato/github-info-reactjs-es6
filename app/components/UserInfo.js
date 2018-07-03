@@ -11,6 +11,10 @@ var UserInfo = React.createClass({
   },
 
   // Component LifeCycle
+  componentWillReceiveProps: function () {
+    this.setState({isLoading: false})
+  },
+
   componentDidMount: function () {
     this.setState({isLoading: false})
   },
