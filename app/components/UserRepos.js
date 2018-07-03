@@ -15,9 +15,9 @@ var UserRepos = React.createClass({
     this.setState({reposCount: props.repos.length, isLoading: false})
   },
   // Component LifeCycle
-  componentDidMount: function () {
-    this.setState({isLoading: false})
-  },
+  // componentDidMount: function () {
+  //   this.setState({isLoading: false})
+  // },
 
   render: function () {
     var repos = this.props.repos.map(function (repo, key) {
@@ -40,9 +40,8 @@ var UserRepos = React.createClass({
     console.log(repos)
 
     return (
-      this.state.isLoading ? 
-        <Spinner /> :
         <div>
+          {this.state.isLoading ? <Spinner /> : null}
           <h4>{this.state.reposCount} repositórios</h4>
           {repos}
         </div>

@@ -21,14 +21,12 @@ var UserInfo = React.createClass({
 
   render: function () {
     var userInfo = 
-    this.state.isLoading ? 
-      <Spinner /> :
-    
     this.props.user ? 
     (
       <div className="container">
         <div className="row">
           <div className="col-md-4">
+          {this.state.isLoading ? <Spinner /> : null}
             <div className="card text-center border-dark shadow-sm" 
               style={{marginBottom: '1.5rem'}}>
               <div style={{padding: '1em'}}>
