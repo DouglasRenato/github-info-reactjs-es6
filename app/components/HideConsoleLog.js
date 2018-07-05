@@ -7,7 +7,7 @@ function HideConsoleLog () {
         // se for local mostra os console.log's
         window.location.hostname === 'localhost' || window.location.origin === 'file://' ? 
           null : 
-            // e não tiver paremetro ?dev na url
+            // se for local e não tiver o paremetro ?dev na url
             window.location.search !== '?dev' ?
               // oculta todos e quaisquer console.log's
               console.assert = 
