@@ -3,6 +3,7 @@ var React = require('react')
 var SearchUser = require('./SearchUser')
 var UserInfo = require('./UserInfo')
 var Footer = require('./Footer')
+var HideConsoleLog = require('./HideConsoleLog')
 
 var GitHub = React.createClass({
   getInitialState: function () {
@@ -32,6 +33,7 @@ var GitHub = React.createClass({
           repos={this.state.repos}
         />
         <Footer />
+        <HideConsoleLog />
       </div>
     )
   }
