@@ -4,6 +4,7 @@ var SearchUser = require('./SearchUser')
 var UserInfo = require('./UserInfo')
 var Footer = require('./Footer')
 var HideConsoleLog = require('./HideConsoleLog')
+var Spinner = require('./Spinner')
 
 var GitHub = React.createClass({
   getInitialState: function () {
@@ -12,7 +13,7 @@ var GitHub = React.createClass({
       repos: []
     }
   },
-  
+ 
   updateUser: function (user) {
     this.setState({user: user})
   },

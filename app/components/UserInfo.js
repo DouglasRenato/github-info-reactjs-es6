@@ -1,7 +1,14 @@
 var React = require('react')
+var ReactDOM = require('react-dom')
 
 var UserRepos = require('./UserRepos')
 var Spinner =require('./Spinner')
+
+// test only about how to use style in variables...
+var css_fixedSelf =  {
+  //position: 'fixed',
+  //top: '15px'
+}
 
 var UserInfo = React.createClass({
   getInitialState: function () {
@@ -19,13 +26,16 @@ var UserInfo = React.createClass({
     this.setState({isLoading: false})
   },
 
+  // componentWillUnmount: function () {
+  // },
+
   render: function () {
     var userInfo = 
     this.props.user ? 
     (
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
+          <div className="col-md-4" style={css_fixedSelf}>
           {this.state.isLoading ? <Spinner /> : null}
             <div className="card text-center border-dark shadow-sm" 
               style={{marginBottom: '1.5rem'}}>
@@ -80,9 +90,6 @@ var UserInfo = React.createClass({
   }
 
 })
-// function UserInfo (props) {
-  
-// }
 
 // PropTypes (usado para aumentar a confiabilidade do código, 
 // informando funções, objetos, arrays... 

@@ -19,6 +19,11 @@ var UserRepos = React.createClass({
   //   this.setState({isLoading: false})
   // },
 
+  onChangePage: function (pageOfItems) {
+    // update state with new page of items
+    this.setState({ pageOfItems: pageOfItems });
+  },
+
   render: function () {
     var repos = this.props.repos.map(function (repo, key) {
       return (
