@@ -1,37 +1,42 @@
-var React = require('react')
+import React, {Component} from 'react'
 
-var GitHubUser = require('../services/GitHubUser')
+import GitHubUser from '../services/GitHubUser'
 
-var SearchUser = React.createClass({
-  handleSubmit: function (e) {
+class SearchUser extends Component {
+  constructor(props) {
+    super(props)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+  
+  handleSubmit(e) {
     e.preventDefault()
 
     GitHubUser.getByUsername(this.refs.username.value)
-      .then(function (response) {
+      .then((response) => {
         console.log('response user ===> ', response)
         this.props.updateUser(response.data)
-      }.bind(this))
-        .catch(function(e) {
+      })
+        .catch((e) => {
           console.log('Error user ===> ', e)
           this.props.updateUser(null)
-        }.bind(this))
-          .finally(function() {
+        })
+          .finally(() => {
             console.log('This finally block')
-          }.bind(this))
+          })
 
-    GitHubUser.getReposByUsername(this.refs.username.value).then(function (response) {
+    GitHubUser.getReposByUsername(this.refs.username.value).then((response) => {
       console.log('response repos ===> ', response)
       this.props.updateRepos(response.data)
-    }.bind(this))
-      .catch(function(e) {
+    })
+      .catch((e) => {
         console.log('Error repos ===> ', e)
       })
-        .finally(function() {
+        .finally(() => {
           console.log('Repos = This finally block')
-        }.bind(this))
-  },
+        })
+  }
 
-  render: function () {
+  render() {
     return (
       <div className="jumbotron jumbotron-fluid" style={{marginBottom: '1.5rem', boxShadow: '-5px 0 15px #aaa'}}>
         <div className="container">
@@ -69,7 +74,7 @@ var SearchUser = React.createClass({
       </div>
     )
   }
-})
+}
 
 // PropTypes (usado para aumentar a confiabilidade do código, 
 // informando funções, objetos, arrays... 
@@ -79,4 +84,4 @@ GitHubUser.propTypes = {
   updateRepos: React.PropTypes.func // func = usa uma função e funciona mesmo sem
 }
 
-module.exports = SearchUser
+export default SearchUser

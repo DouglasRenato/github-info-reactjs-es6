@@ -1,31 +1,28 @@
-var React = require('react')
+import React, {Component} from 'react'
 
-var Spinner = require('./Spinner')
+import Spinner from './Spinner'
 
-var UserRepos = React.createClass({
-  getInitialState: function () {
-    return {
+class UserRepos extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
       isLoading: true,
       reposCount: 0
     }
-  },
+  }
 
   // Component LifeCycle
-  componentWillReceiveProps: function (props) {
+  componentWillReceiveProps(props) {
     this.setState({reposCount: props.repos.length, isLoading: false})
-  },
+  }
   // Component LifeCycle
-  // componentDidMount: function () {
+  // componentDidMount() {
   //   this.setState({isLoading: false})
-  // },
+  // }
 
-  onChangePage: function (pageOfItems) {
-    // update state with new page of items
-    this.setState({ pageOfItems: pageOfItems });
-  },
-
-  render: function () {
-    var repos = this.props.repos.map(function (repo, key) {
+  render() {
+    const {repos} = this.props
+    const reposList = repos.map((repo, key) => {
       return (
         <div key={key} className="card shadow-sm" style={{marginBottom: '1em'}}>
           <div className="card-body">
@@ -42,16 +39,16 @@ var UserRepos = React.createClass({
       )
     })
     
-    console.log(repos)
+    console.log(reposList)
 
     return (
-        <div>
-          {this.state.isLoading ? <Spinner /> : null}
-          <h4>{this.state.reposCount} repositórios</h4>
-          {repos}
-        </div>
+      <div>
+        {this.state.isLoading ? <Spinner /> : null}
+        <h4>{this.state.reposCount} repositórios</h4>
+        {reposList}
+      </div>
     )
   }
-})
+}
 
-module.exports = UserRepos
+export default UserRepos

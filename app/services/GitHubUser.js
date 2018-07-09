@@ -1,13 +1,8 @@
-var axios = require('axios')
+import axios from 'axios'
 
-var GitHubUser = {
-  getByUsername: function (username) {
-    return axios.get('https://api.github.com/users/' + username)
-  },
-
-  getReposByUsername: function (username) {
-    return axios.get('https://api.github.com/users/' + username + '/repos')
-  }
+const GitHubUser = {
+  getByUsername: (username) => axios.get(`https://api.github.com/users/${username}`),
+  getReposByUsername: (username) => axios.get(`https://api.github.com/users/${username}/repos`)
 }
 
-module.exports = GitHubUser
+export default GitHubUser

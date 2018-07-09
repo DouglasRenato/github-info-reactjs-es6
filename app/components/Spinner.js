@@ -1,7 +1,7 @@
-var React = require('react')
+import React from 'react'
 
 // Stateless Components (componente que não possui state / refatoração / uma simples função)
-function Spinner () {
+const Spinner = () => {
   return (
     <div className="container"
       style={{height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', 
@@ -14,4 +14,4 @@ function Spinner () {
   )
 }
 
-module.exports = Spinner
+export default Spinner

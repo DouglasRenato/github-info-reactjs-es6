@@ -1,6 +1,6 @@
-var React = require('react')
+import React from 'react'
 
-function HideConsoleLog () {
+const HideConsoleLog = () => {
   return (
     <div>
       {
@@ -41,4 +41,4 @@ function HideConsoleLog () {
   )
 }
 
-module.exports = HideConsoleLog
+export default HideConsoleLog
