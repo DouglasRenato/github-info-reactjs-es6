@@ -1,4 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import { Jumbotron, Container, Button, FormGroup, Form, Label, Input } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import GitHubUser from '../services/GitHubUser'
 
@@ -11,7 +15,13 @@ class SearchUser extends Component {
   handleSubmit(e) {
     e.preventDefault()
 
-    GitHubUser.getByUsername(this.refs.username.value)
+    // envia dados vazios para limpar o state atual 
+    // e ficar 'limpo' para o novo state (ou nunhum caso gere um erro ou não encontre user na busca)
+    this.props.updateUser(null)
+    this.props.updateRepos([])
+
+    console.log('ReactDOM.findDOMNode(this.inputUsername) ===> ', ReactDOM.findDOMNode(this.inputUsername))
+    GitHubUser.getByUsername(ReactDOM.findDOMNode(this.inputUsername).value)
       .then((response) => {
         console.log('response user ===> ', response)
         this.props.updateUser(response.data)
@@ -24,22 +34,23 @@ class SearchUser extends Component {
             console.log('This finally block')
           })
 
-    GitHubUser.getReposByUsername(this.refs.username.value).then((response) => {
-      console.log('response repos ===> ', response)
-      this.props.updateRepos(response.data)
-    })
-      .catch((e) => {
-        console.log('Error repos ===> ', e)
+    GitHubUser.getReposByUsername(ReactDOM.findDOMNode(this.inputUsername).value)
+      .then((response) => {
+        console.log('response repos ===> ', response)
+        this.props.updateRepos(response.data)
       })
-        .finally(() => {
-          console.log('Repos = This finally block')
+        .catch((e) => {
+          console.log('Error repos ===> ', e)
         })
+          .finally(() => {
+            console.log('Repos = This finally block')
+          })
   }
 
   render() {
     return (
-      <div className="jumbotron jumbotron-fluid" style={{marginBottom: '1.5rem', boxShadow: '-5px 0 15px #aaa'}}>
-        <div className="container">
+      <Jumbotron fluid="true" style={{marginBottom: '1.5rem', boxShadow: '-5px 0 15px #aaa'}}>
+        <Container>
           <h1 className="display-1">
             GitHub Info
           </h1>
@@ -47,31 +58,55 @@ class SearchUser extends Component {
             Liste informações de um usuário especifico do GitHub!
           </h3>
 
-          <form onSubmit={this.handleSubmit} style={{marginTop: '2.5rem'}}>
-            <div className="form-group">
-              <label for="exampleInputEmail1">
-                <i className="fas fa-user"></i>
+          <Form onSubmit={this.handleSubmit} style={{marginTop: '2.5rem'}}>
+            <FormGroup>
+              <Label for="exampleInputEmail1">
+                <FontAwesomeIcon icon={faUser}/>
                 {' Username'}
-              </label>
-              <input 
+              </Label>
+              
+              {/* 
+                Maneira de referenciar um component, já que o 'ref="name" está deprecido'
+                (a palavra 'component' poderia ser qualquer outra.)
+              */}
+              <Input 
                 type="text" 
                 className="form-control form-control-lg"
                 id="exampleInputEmail1" 
                 aria-describedby="emailHelp" 
                 placeholder="Ex.: douglasrenato"
-                ref="username"
+                ref={component => { this.inputUsername = component }}
               />
-            </div>
-            <button 
+              {/* 
+              e obter dessa meneira, onde desejar (nesse caso obtem o valor do input)...
+                ReactDOM.findDOMNode(this.inputUsername).value 
+              */}
+
+              {/*
+                Caso fosse uma tag html, poderia referenciar desta maneira...
+                (a palavra 'node' poderia ser qualquer outra.)
+                <input  
+                  type="text" 
+                  className="form-control form-control-lg"
+                  id="exampleInputEmail1" 
+                  aria-describedby="emailHelp" 
+                  placeholder="Ex.: douglasrenato"
+                  ref={node => { this.inputUsername = node }}
+                /> 
+              */}
+            </FormGroup>
+            <Button 
+              color="primary"
+              size="lg" 
               type="submit" 
-              className="btn btn-lg btn-primary col-md-2">
-              <i className="fas fa-search"></i>
+              className="col-md-2"
+            >
+              <FontAwesomeIcon icon={faSearch}/>
               {' Buscar'}
-            </button>
-          </form>
-          
-        </div>
-      </div>
+            </Button>
+          </Form> 
+        </Container>
+      </Jumbotron>
     )
   }
 }

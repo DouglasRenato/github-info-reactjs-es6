@@ -1,4 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { Container, Card, CardTitle, CardImg, CardText, CardBody, Button, Row, Col } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser, faInfo, faSmile } from '@fortawesome/free-solid-svg-icons'
 
 import UserRepos from './UserRepos'
 import Spinner from './Spinner'
@@ -34,57 +37,60 @@ class UserInfo extends Component {
     const userInfo = 
       user ? 
         (
-          <div className="container">
-            <div className="row">
-              <div className="col-md-4" style={css_fixedSelf}>
+          <Container>
+           <Row>
+              <Col md="4" style={css_fixedSelf}>
               {this.state.isLoading ? <Spinner /> : null}
-                <div className="card text-center border-dark shadow-sm" 
-                  style={{marginBottom: '1.5rem'}}>
+                <Card 
+                  className="text-center border-dark shadow-sm" 
+                  style={{marginBottom: '1.5rem'}}
+                >
                   <div style={{padding: '1em'}}>
-                    <img className="card-img-top rounded-circle" 
+                    <CardImg top className="rounded-circle" 
                       src={user.avatar_url} 
                       alt={user.name}
                     />
                   </div>
-                  <div className="card-body" style={{background: '#eee'}}>
-                    <h3 className="card-title">{user.name}</h3>
-                    <p className="card-text">{user.bio}</p>
+                  <CardBody style={{background: '#eee'}}>
+                    <CardTitle>{user.name}</CardTitle>
+                    <CardText>{user.bio}</CardText>
                     <hr />
-                    <p className="card-text text-left" style={{margin: '0'}}>
-                      <small class="text-muted">
-                        <i className="fas fa-user"></i> 
+                    <CardText className="text-left" style={{margin: '0'}}>
+                      <small className="text-muted">
+                        <FontAwesomeIcon icon={faUser}/>
                         {` ${user.login}`}
                       </small>
-                    </p>
-                    <p className="card-text text-left" style={{margin: '0'}}>
-                      <small class="text-muted">Seguidores: {user.followers} </small>
+                    </CardText>
+                    <CardText className="text-left" style={{margin: '0'}}>
+                      <small className="text-muted">Seguidores: {user.followers} </small>
                       | 
-                      <small class="text-muted"> Seguindo: {user.following}</small>
-                    </p>
+                      <small className="text-muted"> Seguindo: {user.following}</small>
+                    </CardText>
                     <a href={user.html_url} 
                       target="_blank" 
                       className="btn btn-lg btn-outline-info col-md-12"
                       style={{marginTop: '1.5em'}}>Ver mais
                     </a>
-                  </div>
-                </div>
-              </div>
+                  </CardBody>
+                </Card>
+              </Col>
 
-              <div className="col-md-8">
+              <Col md="8">
                 <UserRepos repos={repos}/>
-              </div>
-            </div>
-          </div>
+              </Col>
+            </Row>
+          </Container>
         ) : 
         (
-          <div className="container text-center">
+          <Container className="text-center">
             <h5 style={{color: '#aaa', height: '25vh', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
-              <i className="fas fa-info" style={{margin: '1em', fontSize: '1.9em'}}></i>
+              <FontAwesomeIcon icon={faInfo} style={{margin: '1em', fontSize: '1.9em'}}/>
               <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-                Tente uma ou outra busca! <i className="far fa-smile-wink" style={{margin: '0 0 0 .3em'}}></i>
+                Tente uma ou outra busca! 
+                <FontAwesomeIcon icon={faSmile} style={{margin: '0 0 0 .3em'}}/>
               </div>
             </h5>
-          </div>
+          </Container>
         )
 
     return userInfo

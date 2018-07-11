@@ -1,4 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import {Card, CardTitle, CardBody, CardText, Badge } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
 
 import Spinner from './Spinner'
 
@@ -24,22 +27,24 @@ class UserRepos extends Component {
     const {repos} = this.props
     const reposList = repos.map((repo, key) => {
       return (
-        <div key={key} className="card shadow-sm" style={{marginBottom: '1em'}}>
-          <div className="card-body">
-            <h5 className="card-title float-left">{repo.name}</h5>
+        <Card key={key} className="shadow-sm" style={{marginBottom: '1em'}}>
+          <CardBody>
+            <CardTitle className="float-left">{repo.name}</CardTitle>
             <span className="float-right">
-              <i className="fas fa-star" style={{color: '#6c757d'}}></i>
-              <small className="badge badge-secondary ml-1">{repo.stargazers_count}</small>
+              <Badge color="secondary">
+                <FontAwesomeIcon icon={faStar} className="mr-1" style={{color: '#fff', marginBottom: '1.7px'}}/>
+                {repo.stargazers_count}
+              </Badge>
             </span>
             <br /> <br />
-            <p className="card-text">{repo.description}</p>
+            <CardText>{repo.description}</CardText>
             <a href={repo.html_url} target="_blank" className="btn btn-sm btn-outline-secondary">Mais detalhes</a>
-          </div>
-        </div>
+          </CardBody>
+        </Card>
       )
     })
     
-    console.log(reposList)
+    console.log('repos ===> ', reposList)
 
     return (
       <div>
